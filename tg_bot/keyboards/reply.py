@@ -1,7 +1,7 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 
-def language_keyboard() -> ReplyKeyboardMarkup:
+def language_keyboard():
     return ReplyKeyboardMarkup(
         keyboard=[
             [KeyboardButton(text="🇺🇿 O'zbekcha")],
@@ -12,12 +12,8 @@ def language_keyboard() -> ReplyKeyboardMarkup:
     )
 
 
-def phone_keyboard(lang: str) -> ReplyKeyboardMarkup:
-    if lang == "uz":
-        text = "📱 Raqamni yuborish"
-    else:
-        text = "📱 Поделиться номером"
-
+def phone_keyboard(lang: str):
+    text = "📱 Raqamni yuborish" if lang == "uz" else "📱 Поделиться номером"
     return ReplyKeyboardMarkup(
         keyboard=[
             [KeyboardButton(text=text, request_contact=True)]
@@ -27,7 +23,7 @@ def phone_keyboard(lang: str) -> ReplyKeyboardMarkup:
     )
 
 
-def home_keyboard(lang: str) -> ReplyKeyboardMarkup:
+def home_keyboard(lang: str):
     if lang == "uz":
         keyboard = [
             [
@@ -36,10 +32,10 @@ def home_keyboard(lang: str) -> ReplyKeyboardMarkup:
             ],
             [
                 KeyboardButton(text="✍️ Fikr qoldirish"),
-                KeyboardButton(text="🔎 Yordam"),
+                KeyboardButton(text="📞 Yordam"),
             ],
             [
-                KeyboardButton(text="🛠 Sozlamalar"),
+                KeyboardButton(text="⚙️ Sozlamalar"),
             ],
         ]
     else:
@@ -50,10 +46,10 @@ def home_keyboard(lang: str) -> ReplyKeyboardMarkup:
             ],
             [
                 KeyboardButton(text="✍️ Оставить отзыв"),
-                KeyboardButton(text="🔎 Помощь"),
+                KeyboardButton(text="📞 Помощь"),
             ],
             [
-                KeyboardButton(text="🛠 Настройки"),
+                KeyboardButton(text="⚙️ Настройки"),
             ],
         ]
 
@@ -62,7 +58,3 @@ def home_keyboard(lang: str) -> ReplyKeyboardMarkup:
         resize_keyboard=True,
         is_persistent=True,
     )
-
-
-def remove_keyboard() -> ReplyKeyboardRemove:
-    return ReplyKeyboardRemove()
