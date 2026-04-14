@@ -33,7 +33,11 @@ def get_active_products():
 
 @sync_to_async
 def get_product_by_id(product_id: int):
-    product = Product.objects.filter(id=product_id, is_active=True).prefetch_related("promotions").first()
+    product = Product.objects.filter(
+        id=product_id,
+        is_active=True
+    ).prefetch_related("promotions").first()
+
     if not product:
         return None
 

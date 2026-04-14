@@ -27,7 +27,7 @@ def home_keyboard(lang: str):
     if lang == "uz":
         keyboard = [
             [
-                KeyboardButton(text="💧 Mahsulotlar"),
+                KeyboardButton(text="💧 Maxsulotlar"),
                 KeyboardButton(text="🛒 Savatcha"),
             ],
             [
@@ -55,6 +55,106 @@ def home_keyboard(lang: str):
 
     return ReplyKeyboardMarkup(
         keyboard=keyboard,
+        resize_keyboard=True,
+        is_persistent=True,
+    )
+
+
+def products_keyboard(products, lang: str):
+    keyboard = []
+
+    row = []
+    for product in products:
+        title = product["name_uz"] if lang == "uz" else product["name_ru"]
+        row.append(KeyboardButton(text=title))
+
+        if len(row) == 2:
+            keyboard.append(row)
+            row = []
+
+    if row:
+        keyboard.append(row)
+
+    if lang == "uz":
+        keyboard.append([
+            KeyboardButton(text="⬅️ Orqaga"),
+            KeyboardButton(text="🛒 Savatcha"),
+        ])
+    else:
+        keyboard.append([
+            KeyboardButton(text="⬅️ Назад"),
+            KeyboardButton(text="🛒 Корзина"),
+        ])
+
+    return ReplyKeyboardMarkup(
+        keyboard=keyboard,
+        resize_keyboard=True,
+        is_persistent=True,
+    )
+
+
+def quantity_keyboard(lang: str):
+    keyboard = [
+        [
+            KeyboardButton(text="3"),
+            KeyboardButton(text="4"),
+            KeyboardButton(text="5"),
+        ],
+        [
+            KeyboardButton(text="6"),
+            KeyboardButton(text="7"),
+            KeyboardButton(text="8"),
+        ],
+        [
+            KeyboardButton(text="9"),
+            KeyboardButton(text="10"),
+            KeyboardButton(text="11"),
+        ],
+    ]
+
+    if lang == "uz":
+        keyboard.append([
+            KeyboardButton(text="12"),
+            KeyboardButton(text="✍️ Boshqa miqdor"),
+        ])
+    else:
+        keyboard.append([
+            KeyboardButton(text="12"),
+            KeyboardButton(text="✍️ Другое количество"),
+        ])
+
+    return ReplyKeyboardMarkup(
+        keyboard=keyboard,
+        resize_keyboard=True,
+        is_persistent=True,
+    )
+    
+
+def settings_keyboard(lang: str):
+    if lang == "uz":
+        keyboard = [
+            [KeyboardButton(text="🌐 Tilni o'zgartirish")],
+            [KeyboardButton(text="⬅️ Orqaga")],
+        ]
+    else:
+        keyboard = [
+            [KeyboardButton(text="🌐 Сменить язык")],
+            [KeyboardButton(text="⬅️ Назад")],
+        ]
+
+    return ReplyKeyboardMarkup(
+        keyboard=keyboard,
+        resize_keyboard=True,
+        is_persistent=True,
+    )
+
+
+def change_language_keyboard():
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text="🇺🇿 O'zbekcha")],
+            [KeyboardButton(text="🇷🇺 Русский")],
+        ],
         resize_keyboard=True,
         is_persistent=True,
     )
