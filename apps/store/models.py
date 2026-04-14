@@ -2,7 +2,7 @@ from django.db import models
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    size = models.FloatField()
+    size = models.DecimalField(max_digits=10, decimal_places=2)
     price = models.FloatField(default=0)
     discount = models.IntegerField(default=0)
     discount_price = models.FloatField(default=0)
@@ -24,7 +24,7 @@ class Product(models.Model):
 
 class Cart(models.Model):
     user = models.ForeignKey(
-        "authentication.User",
+        "users.TelegramUser",
         on_delete=models.CASCADE,
         related_name="cart_user",
     )
@@ -61,7 +61,7 @@ class Order(models.Model):
     )
 
     user = models.ForeignKey(
-        "authentication.User",
+        "users.TelegramUser",
         on_delete=models.CASCADE,
         related_name="order_user",
     )
