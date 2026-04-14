@@ -1,11 +1,13 @@
 from aiogram import Router, F
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message, BotCommand
+from aiogram.types import Message, BotCommand, FSInputFile, CallbackQuery
 from aiogram.fsm.context import FSMContext
 
 from tg_bot.states.start import StartState
 from tg_bot.keyboards.reply import language_keyboard, phone_keyboard, home_keyboard
 from tg_bot.services.users import get_user_by_telegram_id, create_or_update_user
+from tg_bot.services.products import get_active_products, get_product_by_id
+from tg_bot.keyboards.inline import products_inline_keyboard, product_card_keyboard
 
 router = Router()
 
@@ -168,10 +170,128 @@ async def invalid_phone_handler(message: Message, state: FSMContext):
 
 @router.message(F.text.in_(["💧 Mahsulotlar", "💧 Товары"]))
 async def products_handler(message: Message):
-    if message.text == "💧 Mahsulotlar":
-        await message.answer("💧 Mahsulotlar bo'limini keyingi stepda ulaymiz.")
+    products = await get_active_products()
+
+    if not products:
+        if message.text == "💧 Mahsulotlar":
+            await message.answer("💧 Hozircha mahsulotlar mavjud emas.")
+        else:
+            await message.answer("💧 Пока товары не добавлены.")
+        return
+
+    lang = "uz" if message.text == "💧 Mahsulotlar" else "ru"
+
+    if lang == "uz":
+        text = "💧 Mahsulotni tanlang:"
     else:
-        await message.answer("💧 Раздел товаров подключим на следующем этапе.")
+        text = "💧 Выберите товар:"
+
+    await message.answer(
+        text,
+        reply_markup=products_inline_keyboard(products, lang)
+    )
+    products = await get_active_products()
+
+    if not products:
+        if message.text == "💧 Mahsulotlar":
+            await message.answer("💧 Hozircha mahsulotlar mavjud emas.")
+        else:
+            await message.answer("💧 Пока товары не добавлены.")
+        return
+
+    if message.text == "💧 Mahsulotlar":
+        await message.answer("💧 Mahsulotlar ro'yxati:")
+
+        for product in products:
+            text = (
+                f"💧 {product['name_uz']}\n"
+                f"📦 Hajmi: {product['volume']}\n"
+                f"💰 Narxi: {product['price']:,} so'm"
+            )
+
+            if product["discount_percent"] > 0:
+                text += (
+                    f"\n🔥 Chegirma: {product['discount_percent']}%"
+                    f"\n✅ Aksiya narxi: {product['final_price']:,} so'm"
+                )
+
+            if product["image_path"]:
+                photo = FSInputFile(product["image_path"])
+                await message.answer_photo(photo=photo, caption=text)
+            else:
+                await message.answer(text)
+
+    else:
+        await message.answer("💧 Список товаров:")
+
+        for product in products:
+            text = (
+                f"💧 {product['name_ru']}\n"
+                f"📦 Объем: {product['volume']}\n"
+                f"💰 Цена: {product['price']:,} сум"
+            )
+
+            if product["discount_percent"] > 0:
+                text += (
+                    f"\n🔥 Скидка: {product['discount_percent']}%"
+                    f"\n✅ Цена по акции: {product['final_price']:,} сум"
+                )
+
+            if product["image_path"]:
+                photo = FSInputFile(product["image_path"])
+                await message.answer_photo(photo=photo, caption=text)
+            else:
+                await message.answer(text)
+    products = await get_active_products()
+
+    if not products:
+        if message.text == "💧 Mahsulotlar":
+            await message.answer("💧 Hozircha mahsulotlar mavjud emas.")
+        else:
+            await message.answer("💧 Пока товары не добавлены.")
+        return
+
+    if message.text == "💧 Mahsulotlar":
+        await message.answer("💧 Mahsulotlar ro'yxati:")
+
+        for product in products:
+            text = (
+                f"💧 {product.name_uz or product.name}\n"
+                f"📦 Hajmi: {product.volume}\n"
+                f"💰 Narxi: {product.price:,} so'm"
+            )
+
+            if product.discount_percent > 0:
+                text += (
+                    f"\n🔥 Chegirma: {product.discount_percent}%"
+                    f"\n✅ Aksiya narxi: {product.final_price:,} so'm"
+                )
+
+            if product.image:
+                await message.answer_photo(photo=product.image.path, caption=text)
+            else:
+                await message.answer(text)
+
+    else:
+        await message.answer("💧 Список товаров:")
+
+        for product in products:
+            text = (
+                f"💧 {product.name_ru or product.name}\n"
+                f"📦 Объем: {product.volume}\n"
+                f"💰 Цена: {product.price:,} сум"
+            )
+
+            if product.discount_percent > 0:
+                text += (
+                    f"\n🔥 Скидка: {product.discount_percent}%"
+                    f"\n✅ Цена по акции: {product.final_price:,} сум"
+                )
+
+            if product.image:
+                await message.answer_photo(photo=product.image.path, caption=text)
+            else:
+                await message.answer(text)
 
 
 @router.message(F.text.in_(["🛒 Savatcha", "🛒 Корзина"]))
