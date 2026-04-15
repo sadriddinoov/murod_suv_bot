@@ -20,10 +20,6 @@ def create_or_update_user(telegram_id: int, full_name: str, phone: str, language
     return user
 
 
-from asgiref.sync import sync_to_async
-from apps.users.models import TelegramUser
-
-
 @sync_to_async
 def update_user_language(telegram_id: int, language: str):
     user = TelegramUser.objects.filter(telegram_id=telegram_id).first()

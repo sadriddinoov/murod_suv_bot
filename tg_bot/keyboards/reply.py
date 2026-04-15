@@ -167,7 +167,7 @@ def feedback_keyboard(lang: str):
     if lang == "uz":
         keyboard = [
             [KeyboardButton(text="Hammasi yoqdi ❤️")],
-            [KeyboardButton(text="Yaxshi ⭐⭐⭐⭐⭐")],
+            [KeyboardButton(text="Yaxshi ⭐⭐⭐⭐")],
             [KeyboardButton(text="Yoqmadi ⭐⭐⭐")],
             [KeyboardButton(text="Yomon ⭐⭐")],
             [KeyboardButton(text="Juda yomon 👎🏻")],
@@ -176,7 +176,7 @@ def feedback_keyboard(lang: str):
     else:
         keyboard = [
             [KeyboardButton(text="Очень понравилось ❤️")],
-            [KeyboardButton(text="Хорошо ⭐⭐⭐⭐⭐")],
+            [KeyboardButton(text="Хорошо ⭐⭐⭐⭐")],
             [KeyboardButton(text="Не понравилось ⭐⭐⭐")],
             [KeyboardButton(text="Плохо ⭐⭐")],
             [KeyboardButton(text="Очень плохо 👎🏻")],

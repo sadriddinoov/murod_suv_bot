@@ -105,11 +105,11 @@ async def help_message_save_handler(message: Message, state: FSMContext):
     await create_help_message(message.from_user.id, text_value)
 
     admin_text = (
-        f"📬 Yangi help xabar\n\n"
+        f"📬 Yangi xabar\n\n"
         f"👤 Ism: {user.full_name if user else message.from_user.full_name}\n"
         f"📞 Telefon: {user.phone if user else '-'}\n"
         f"🆔 Telegram ID: {message.from_user.id}\n"
-        f"💬 Xabar:\n{text_value}"
+        f"💬 Xabar: {text_value}"
     )
 
     for admin_id in ADMIN_IDS:

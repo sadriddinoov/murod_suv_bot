@@ -37,12 +37,12 @@ async def feedback_start_handler(message: Message, state: FSMContext):
 
 @router.message(FeedbackState.waiting_for_rating, F.text.in_([
     "Hammasi yoqdi ❤️",
-    "Yaxshi ⭐⭐⭐⭐⭐",
+    "Yaxshi ⭐⭐⭐⭐",
     "Yoqmadi ⭐⭐⭐",
     "Yomon ⭐⭐",
     "Juda yomon 👎🏻",
     "Очень понравилось ❤️",
-    "Хорошо ⭐⭐⭐⭐⭐",
+    "Хорошо ⭐⭐⭐⭐",
     "Не понравилось ⭐⭐⭐",
     "Плохо ⭐⭐",
     "Очень плохо 👎🏻",
@@ -53,12 +53,12 @@ async def feedback_rating_handler(message: Message, state: FSMContext):
 
     mapping = {
         "Hammasi yoqdi ❤️": "5",
-        "Yaxshi ⭐⭐⭐⭐⭐": "4",
+        "Yaxshi ⭐⭐⭐⭐": "4",
         "Yoqmadi ⭐⭐⭐": "3",
         "Yomon ⭐⭐": "2",
         "Juda yomon 👎🏻": "1",
         "Очень понравилось ❤️": "5",
-        "Хорошо ⭐⭐⭐⭐⭐": "4",
+        "Хорошо ⭐⭐⭐⭐": "4",
         "Не понравилось ⭐⭐⭐": "3",
         "Плохо ⭐⭐": "2",
         "Очень плохо 👎🏻": "1",

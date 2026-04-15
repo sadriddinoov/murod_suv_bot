@@ -76,6 +76,35 @@ LANGUAGES = (
     ("ru", "Russian"),
 )
 
+JAZZMIN_SETTINGS = {
+    "site_title": "Murod Suv Admin",
+    "site_header": "Murod Suv",
+    "site_brand": "Murod Suv",
+    "welcome_sign": "Murod Suv boshqaruv paneli",
+    "copyright": "Murod Suv",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "hide_apps": [],
+    "order_with_respect_to": [
+        "store",
+        "users",
+        "auth",
+    ],
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "store.Product": "fas fa-tint",
+        "store.Promotion": "fas fa-percent",
+        "store.Cart": "fas fa-shopping-cart",
+        "store.Order": "fas fa-receipt",
+        "store.Feedback": "fas fa-star",
+        "store.HelpMessage": "fas fa-envelope",
+        "store.BotSetting": "fas fa-cog",
+        "users.TelegramUser": "fab fa-telegram-plane",
+    },
+}
+
 MODELTRANSLATION_DEFAULT_LANGUAGE = "uz"
 MODELTRANSLATION_LANGUAGES = ("uz", "ru")
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = "uz"
