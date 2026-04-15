@@ -1,5 +1,12 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+from django.db.models import Q
+
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+from django.db.models import Q
 
 
 class Product(models.Model):
@@ -20,7 +27,13 @@ class Product(models.Model):
 
     @property
     def active_promotion(self):
-        return self.promotions.filter(is_active=True).order_by("-id").first()
+        now = timezone.now()
+        return self.promotions.filter(
+            is_active=True
+        ).filter(
+            Q(start_date__isnull=True) | Q(start_date__lte=now),
+            Q(end_date__isnull=True) | Q(end_date__gte=now),
+        ).order_by("-id").first()
 
     @property
     def discount_percent(self):
@@ -61,6 +74,18 @@ class Promotion(models.Model):
 
     def __str__(self):
         return f"{self.product} - {self.discount_percent}%"
+
+    @property
+    def is_currently_active(self):
+        now = timezone.now()
+
+        if not self.is_active:
+            return False
+        if self.start_date and self.start_date > now:
+            return False
+        if self.end_date and self.end_date < now:
+            return False
+        return True
 
     def save(self, *args, **kwargs):
         if self.is_active:
