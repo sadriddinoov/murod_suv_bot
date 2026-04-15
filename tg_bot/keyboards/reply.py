@@ -128,7 +128,7 @@ def quantity_keyboard(lang: str):
         resize_keyboard=True,
         is_persistent=True,
     )
-    
+
 
 def settings_keyboard(lang: str):
     if lang == "uz":
@@ -158,3 +158,70 @@ def change_language_keyboard():
         resize_keyboard=True,
         is_persistent=True,
     )
+
+
+def feedback_keyboard(lang: str):
+    if lang == "uz":
+        keyboard = [
+            [KeyboardButton(text="Hammasi yoqdi ❤️")],
+            [KeyboardButton(text="Yaxshi ⭐⭐⭐⭐⭐")],
+            [KeyboardButton(text="Yoqmadi ⭐⭐⭐")],
+            [KeyboardButton(text="Yomon ⭐⭐")],
+            [KeyboardButton(text="Juda yomon 👎🏻")],
+            [KeyboardButton(text="⬅️ Orqaga")],
+        ]
+    else:
+        keyboard = [
+            [KeyboardButton(text="Очень понравилось ❤️")],
+            [KeyboardButton(text="Хорошо ⭐⭐⭐⭐⭐")],
+            [KeyboardButton(text="Не понравилось ⭐⭐⭐")],
+            [KeyboardButton(text="Плохо ⭐⭐")],
+            [KeyboardButton(text="Очень плохо 👎🏻")],
+            [KeyboardButton(text="⬅️ Назад")],
+        ]
+
+    return ReplyKeyboardMarkup(
+        keyboard=keyboard,
+        resize_keyboard=True,
+        is_persistent=True,
+    )
+
+def cancel_keyboard(lang: str):
+    if lang == "uz":
+        keyboard = [[KeyboardButton(text="Bekor qilish")]]
+    else:
+        keyboard = [[KeyboardButton(text="Отмена")]]
+
+    return ReplyKeyboardMarkup(
+        keyboard=keyboard,
+        resize_keyboard=True,
+        is_persistent=True,
+    )
+    
+    
+
+def help_inline_keyboard(lang: str) -> InlineKeyboardMarkup:
+    if lang == "uz":
+        keyboard = [
+            [
+                InlineKeyboardButton(text="📞 Telefon orqali bog'lanish", callback_data="help_phone"),
+                InlineKeyboardButton(text="📬 Xabar jo'natish", callback_data="help_message"),
+            ],
+            [
+                InlineKeyboardButton(text="🛒 Buyurtma tarixi", callback_data="help_orders"),
+                InlineKeyboardButton(text="⬅️ Orqaga", callback_data="help_back"),
+            ],
+        ]
+    else:
+        keyboard = [
+            [
+                InlineKeyboardButton(text="📞 Связаться по телефону", callback_data="help_phone"),
+                InlineKeyboardButton(text="📬 Отправить сообщение", callback_data="help_message"),
+            ],
+            [
+                InlineKeyboardButton(text="🛒 История заказов", callback_data="help_orders"),
+                InlineKeyboardButton(text="⬅️ Назад", callback_data="help_back"),
+            ],
+        ]
+
+    return InlineKeyboardMarkup(inline_keyboard=keyboard)

@@ -1,5 +1,15 @@
 from django.contrib import admin
-from .models import Product, Promotion, Cart, CartItem, Order, OrderItem, BotSetting, Feedback
+from .models import (
+    Product,
+    Promotion,
+    Cart,
+    CartItem,
+    Order,
+    OrderItem,
+    BotSetting,
+    Feedback,
+    HelpMessage,
+)
 
 
 @admin.register(Product)
@@ -7,6 +17,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "volume", "price", "is_active", "created_at")
     list_filter = ("is_active",)
     search_fields = ("name", "name_uz", "name_ru", "volume")
+    ordering = ("-id",)
 
 
 @admin.register(Promotion)
@@ -24,6 +35,7 @@ class PromotionAdmin(admin.ModelAdmin):
     list_filter = ("is_active", "created_at")
     search_fields = ("product__name", "product__name_uz", "product__name_ru")
     readonly_fields = ("created_by", "created_at", "updated_at")
+    ordering = ("-id",)
 
     def save_model(self, request, obj, form, change):
         if not obj.created_by:
@@ -42,6 +54,7 @@ class CartItemInline(admin.TabularInline):
 class CartAdmin(admin.ModelAdmin):
     list_display = ("id", "user", "created_at", "updated_at")
     inlines = [CartItemInline]
+    ordering = ("-id",)
 
 
 class OrderItemInline(admin.TabularInline):
@@ -64,18 +77,25 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ("status",)
     search_fields = ("user__full_name", "user__phone", "phone", "address")
     inlines = [OrderItemInline]
+    ordering = ("-id",)
 
 
 @admin.register(BotSetting)
 class BotSettingAdmin(admin.ModelAdmin):
     list_display = ("id", "operator_telegram_id")
+    ordering = ("-id",)
 
 
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "user",
-        "rating"
-    )
-    search_fields = ("user__full_name", "user__phone", "rating")
+    list_display = ("id", "user", "rating", "comment", "created_at")
+    list_filter = ("rating",)
+    search_fields = ("user__full_name", "user__phone", "comment")
+    ordering = ("-id",)
+
+
+@admin.register(HelpMessage)
+class HelpMessageAdmin(admin.ModelAdmin):
+    list_display = ("id", "user", "text", "created_at")
+    search_fields = ("user__full_name", "user__phone", "text")
+    ordering = ("-id",)

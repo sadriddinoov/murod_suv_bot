@@ -13,7 +13,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["id"]
+        ordering = ["-id"]
 
     def __str__(self):
         return self.name
@@ -79,7 +79,7 @@ class Cart(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["id"]
+        ordering = ["-id"]
 
     def __str__(self):
         return f"Cart - {self.user}"
@@ -115,7 +115,7 @@ class CartItem(models.Model):
 
     class Meta:
         unique_together = ("cart", "product")
-        ordering = ["id"]
+        ordering = ["-id"]
 
     def __str__(self):
         return f"{self.cart} - {self.product} - {self.quantity}"
@@ -188,7 +188,7 @@ class OrderItem(models.Model):
     final_price = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ["id"]
+        ordering = ["-id"]
 
     def __str__(self):
         return f"{self.order} - {self.product} - {self.quantity}"
@@ -244,3 +244,17 @@ class Feedback(models.Model):
         return f"{self.user} - {self.get_rating_display()}"
 
 
+class HelpMessage(models.Model):
+    user = models.ForeignKey(
+        "users.TelegramUser",
+        on_delete=models.CASCADE,
+        related_name="help_messages",
+    )
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-id"]
+
+    def __str__(self):
+        return f"{self.user} - {self.created_at}"

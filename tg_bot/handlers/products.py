@@ -24,7 +24,7 @@ async def products_handler(message: Message):
     lang = user.language if user else "uz"
 
     if not products:
-        text = "💧 Hozircha mahsulotlar mavjud emas." if lang == "uz" else "💧 Пока товары не добавлены."
+        text = "💧 Hozircha mahsulotlar mavjud emas." if lang == "uz" else "💧 Пока нет товаров."
         await message.answer(text)
         return
 
