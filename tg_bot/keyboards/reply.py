@@ -1,4 +1,7 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import (
+    ReplyKeyboardMarkup,
+    KeyboardButton
+)
 
 
 def language_keyboard():
@@ -197,31 +200,3 @@ def cancel_keyboard(lang: str):
         resize_keyboard=True,
         is_persistent=True,
     )
-    
-    
-
-def help_inline_keyboard(lang: str) -> InlineKeyboardMarkup:
-    if lang == "uz":
-        keyboard = [
-            [
-                InlineKeyboardButton(text="📞 Telefon orqali bog'lanish", callback_data="help_phone"),
-                InlineKeyboardButton(text="📬 Xabar jo'natish", callback_data="help_message"),
-            ],
-            [
-                InlineKeyboardButton(text="🛒 Buyurtma tarixi", callback_data="help_orders"),
-                InlineKeyboardButton(text="⬅️ Orqaga", callback_data="help_back"),
-            ],
-        ]
-    else:
-        keyboard = [
-            [
-                InlineKeyboardButton(text="📞 Связаться по телефону", callback_data="help_phone"),
-                InlineKeyboardButton(text="📬 Отправить сообщение", callback_data="help_message"),
-            ],
-            [
-                InlineKeyboardButton(text="🛒 История заказов", callback_data="help_orders"),
-                InlineKeyboardButton(text="⬅️ Назад", callback_data="help_back"),
-            ],
-        ]
-
-    return InlineKeyboardMarkup(inline_keyboard=keyboard)
