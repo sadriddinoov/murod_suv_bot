@@ -28,7 +28,7 @@ async def products_handler(message: Message):
         await message.answer(text)
         return
 
-    text = "💧 Maxsulotlar" if lang == "uz" else "💧 Товары"
+    text = "💧 Maxsulotlar:" if lang == "uz" else "💧 Товары:"
 
     await message.answer(
         text,
@@ -68,32 +68,34 @@ async def cart_handler(message: Message):
         text = "🛒 Savatchangiz:\n\n"
         for item in cart["items"]:
             text += (
-                f"💧 {item['name_uz']}\n"
-                f"📦 {item['volume']}\n"
-                f"🔢 Soni: {item['quantity']}\n"
-                f"💰 {fmt_price(item['item_total'])} so'm\n\n"
-            )
-
-        text += (
-            f"💵 Jami: {fmt_price(cart['subtotal'])} so'm\n"
-            f"🔥 Chegirma: {fmt_price(cart['discount_amount'])} so'm\n"
-            f"✅ Yakuniy summa: {fmt_price(cart['total_amount'])} so'm"
+            f"💧 {item['name_uz']}\n"
+            f"📦 {item['volume']}\n"
+            f"🔢 Soni: {item['quantity']}\n"
+            f"💰 {fmt_price(item['item_total'])} so'm\n\n"
         )
+
+        text += f"💵 Jami: {fmt_price(cart['subtotal'])} so'm\n"
+
+        if cart["discount_amount"] > 0:
+            text += f"🔥 Chegirma: {fmt_price(cart['discount_amount'])} so'm\n"
+
+        text += f"✅ Yakuniy summa: {fmt_price(cart['total_amount'])} so'm"
     else:
         text = "🛒 Ваша корзина:\n\n"
         for item in cart["items"]:
             text += (
-                f"💧 {item['name_ru']}\n"
-                f"📦 {item['volume']}\n"
-                f"🔢 Кол-во: {item['quantity']}\n"
-                f"💰 {fmt_price(item['item_total'])} сум\n\n"
-            )
-
-        text += (
-            f"💵 Сумма: {fmt_price(cart['subtotal'])} сум\n"
-            f"🔥 Скидка: {fmt_price(cart['discount_amount'])} сум\n"
-            f"✅ Итого: {fmt_price(cart['total_amount'])} сум"
+            f"💧 {item['name_ru']}\n"
+            f"📦 {item['volume']}\n"
+            f"🔢 Кол-во: {item['quantity']}\n"
+            f"💰 {fmt_price(item['item_total'])} сум\n\n"
         )
+
+        text += f"💵 Сумма: {fmt_price(cart['subtotal'])} сум\n"
+
+        if cart["discount_amount"] > 0:
+            text += f"🔥 Скидка: {fmt_price(cart['discount_amount'])} сум\n"
+
+        text += f"✅ Итого: {fmt_price(cart['total_amount'])} сум"
 
     await message.answer(text)
 

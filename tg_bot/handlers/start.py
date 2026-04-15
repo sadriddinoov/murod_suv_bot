@@ -66,19 +66,6 @@ async def menu_command_handler(message: Message):
     await message.answer(text, reply_markup=home_keyboard(lang))
 
 
-@router.message(Command("help"))
-async def help_command_handler(message: Message):
-    user = await get_user_by_telegram_id(message.from_user.id)
-    lang = user.language if user else "uz"
-
-    text = (
-        "📞 Yordam bo'limi keyingi stepda to'ldiriladi."
-        if lang == "uz"
-        else "📞 Раздел помощи добавим на следующем этапе."
-    )
-    await message.answer(text)
-
-
 @router.message(Command("lang"))
 async def lang_command_handler(message: Message):
     await message.answer(f"🌐 language_code: {message.from_user.language_code}")
