@@ -1,7 +1,7 @@
 import os
 
 from aiogram import Router, F
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 
 from tg_bot.keyboards.inline import help_inline_keyboard
@@ -42,7 +42,15 @@ async def help_handler(message: Message, state: FSMContext):
         "Ниже выберите тип помощи. Если не найдете ответ, свяжитесь с оператором."
     )
 
-    await message.answer(text, reply_markup=help_inline_keyboard(lang))
+    await message.answer(
+        text,
+        reply_markup=ReplyKeyboardRemove()
+    )
+
+    await message.answer(
+        "Tanlang:" if lang == "uz" else "Выберите:",
+        reply_markup=help_inline_keyboard(lang)
+    )
 
 
 @router.callback_query(F.data == "help_phone")
