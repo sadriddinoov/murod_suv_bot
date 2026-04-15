@@ -47,13 +47,17 @@ async def start_handler(message: Message, state: FSMContext):
         return
 
     await state.set_state(StartState.choosing_language)
-    await message.answer("🌐 Tilni tanlang / Выберите язык", reply_markup=language_keyboard())
+    await message.answer(
+        "🌐 Tilni tanlang / Выберите язык",
+        reply_markup=language_keyboard()
+    )
 
 
 @router.message(Command("menu"))
 async def menu_command_handler(message: Message):
     user = await get_user_by_telegram_id(message.from_user.id)
     lang = user.language if user else "uz"
+
     text = (
         "💧 Siz bosh menyudasiz.\nIltimos, kerakli bo'limni tanlang ⬇️"
         if lang == "uz"
@@ -66,23 +70,12 @@ async def menu_command_handler(message: Message):
 async def help_command_handler(message: Message):
     user = await get_user_by_telegram_id(message.from_user.id)
     lang = user.language if user else "uz"
-    text = "📞 Yordam bo'limi keyingi stepda to'ldiriladi." if lang == "uz" else "📞 Раздел помощи добавим на следующем этапе."
-    await message.answer(text)
 
-
-@router.message(Command("cart"))
-async def cart_command_handler(message: Message):
-    user = await get_user_by_telegram_id(message.from_user.id)
-    lang = user.language if user else "uz"
-    text = "🛒 Savatcha hozircha bo'sh." if lang == "uz" else "🛒 Корзина пока пустая."
-    await message.answer(text)
-
-
-@router.message(Command("settings"))
-async def settings_command_handler(message: Message):
-    user = await get_user_by_telegram_id(message.from_user.id)
-    lang = user.language if user else "uz"
-    text = "⚙️ Sozlamalar bo'limini keyingi stepda qilamiz." if lang == "uz" else "⚙️ Раздел настроек добавим на следующем этапе."
+    text = (
+        "📞 Yordam bo'limi keyingi stepda to'ldiriladi."
+        if lang == "uz"
+        else "📞 Раздел помощи добавим на следующем этапе."
+    )
     await message.answer(text)
 
 
@@ -97,13 +90,20 @@ async def choose_language_handler(message: Message, state: FSMContext):
     await state.update_data(lang=lang)
     await state.set_state(StartState.waiting_for_phone)
 
-    text = "📱 Iltimos, telefon raqamingizni yuboring" if lang == "uz" else "📱 Пожалуйста, отправьте ваш номер телефона"
+    text = (
+        "📱 Iltimos, telefon raqamingizni yuboring"
+        if lang == "uz"
+        else "📱 Пожалуйста, отправьте ваш номер телефона"
+    )
     await message.answer(text, reply_markup=phone_keyboard(lang))
 
 
 @router.message(StartState.choosing_language)
 async def invalid_language_handler(message: Message):
-    await message.answer("🌐 Tilni tugma orqali tanlang / Выберите язык кнопкой", reply_markup=language_keyboard())
+    await message.answer(
+        "🌐 Tilni tugma orqali tanlang / Выберите язык кнопкой",
+        reply_markup=language_keyboard()
+    )
 
 
 @router.message(StartState.waiting_for_phone, F.contact)
@@ -131,8 +131,14 @@ async def get_phone_handler(message: Message, state: FSMContext):
 async def invalid_phone_handler(message: Message, state: FSMContext):
     data = await state.get_data()
     lang = data.get("lang", "uz")
-    text = "📱 Iltimos, telefon raqamingizni pastdagi tugma orqali yuboring." if lang == "uz" else "📱 Пожалуйста, отправьте номер телефона кнопкой ниже."
+
+    text = (
+        "📱 Iltimos, telefon raqamingizni pastdagi tugma orqali yuboring."
+        if lang == "uz"
+        else "📱 Пожалуйста, отправьте номер телефона кнопкой ниже."
+    )
     await message.answer(text, reply_markup=phone_keyboard(lang))
+
 
 @router.message(F.text.in_(["📞 Yordam", "📞 Помощь"]))
 async def help_menu_handler(message: Message):

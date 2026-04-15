@@ -25,9 +25,9 @@ async def main():
     dp = Dispatcher()
 
     dp.include_router(start_router)
-    dp.include_router(products_router)
     dp.include_router(settings_router)
     dp.include_router(feedback_router)
+    dp.include_router(products_router)
 
     await set_bot_commands(bot)
     await dp.start_polling(bot)
