@@ -125,11 +125,3 @@ async def invalid_phone_handler(message: Message, state: FSMContext):
         else "📱 Пожалуйста, отправьте номер телефона кнопкой ниже."
     )
     await message.answer(text, reply_markup=phone_keyboard(lang))
-
-
-@router.message(F.text.in_(["📞 Yordam", "📞 Помощь"]))
-async def help_menu_handler(message: Message):
-    if message.text == "📞 Yordam":
-        await message.answer("📞 Yordam bo'limi keyingi stepda to'ldiriladi.")
-    else:
-        await message.answer("📞 Раздел помощи заполним на следующем этапе.")
