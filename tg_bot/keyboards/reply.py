@@ -189,6 +189,37 @@ def feedback_keyboard(lang: str):
         is_persistent=True,
     )
 
+def help_keyboard(lang: str):
+    if lang == "uz":
+        keyboard = [
+            [
+                KeyboardButton(text="📞 Telefon orqali bog'lanish"),
+                KeyboardButton(text="📬 Xabar jo'natish"),
+            ],
+            [
+                KeyboardButton(text="🛒 Buyurtma tarixi"),
+                KeyboardButton(text="⬅️ Orqaga"),
+            ],
+        ]
+    else:
+        keyboard = [
+            [
+                KeyboardButton(text="📞 Связаться по телефону"),
+                KeyboardButton(text="📬 Отправить сообщение"),
+            ],
+            [
+                KeyboardButton(text="🛒 История заказов"),
+                KeyboardButton(text="⬅️ Назад"),
+            ],
+        ]
+
+    return ReplyKeyboardMarkup(
+        keyboard=keyboard,
+        resize_keyboard=True,
+        is_persistent=True,
+    )
+
+
 def cancel_keyboard(lang: str):
     if lang == "uz":
         keyboard = [[KeyboardButton(text="Bekor qilish")]]
