@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Product(models.Model):
@@ -210,3 +211,36 @@ class BotSetting(models.Model):
 
     def __str__(self):
         return f"Operator ID: {self.operator_telegram_id}"
+
+
+
+class Feedback(models.Model):
+    class RatingChoices(models.TextChoices):
+        FIVE_STARS = "5", _("⭐⭐⭐⭐⭐")
+        FOUR_STARS = "4", _("⭐⭐⭐⭐")
+        THREE_STARS = "3", _("⭐⭐⭐")
+        TWO_STARS = "2", _("⭐⭐")
+        ONE_STAR = "1", _("⭐")
+
+    user = models.ForeignKey(
+        "users.TelegramUser",
+        on_delete=models.CASCADE,
+        related_name="feedbacks",
+    )
+    rating = models.CharField(
+        max_length=1,
+        choices=RatingChoices.choices,
+        default=RatingChoices.FIVE_STARS,
+    )
+    comment = models.TextField(blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-id"]
+
+    def __str__(self):
+        return f"{self.user} - {self.get_rating_display()}"
+
+

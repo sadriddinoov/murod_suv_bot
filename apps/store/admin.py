@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Promotion, Cart, CartItem, Order, OrderItem, BotSetting
+from .models import Product, Promotion, Cart, CartItem, Order, OrderItem, BotSetting, Feedback
 
 
 @admin.register(Product)
@@ -69,3 +69,13 @@ class OrderAdmin(admin.ModelAdmin):
 @admin.register(BotSetting)
 class BotSettingAdmin(admin.ModelAdmin):
     list_display = ("id", "operator_telegram_id")
+
+
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "user",
+        "rating"
+    )
+    search_fields = ("user__full_name", "user__phone", "rating")
