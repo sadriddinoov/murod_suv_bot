@@ -1,0 +1,134 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: murod-suv-bot\n"
+"Language: uz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add %(name)s"
+msgstr "%(name)s qo'shish"
+
+msgid "History"
+msgstr "Tarix"
+
+msgid "Delete"
+msgstr "O'chirish"
+
+msgid "Objects"
+msgstr "Obyektlar"
+
+msgid "Yes, I’m sure"
+msgstr "Ha, ishonchim komil"
+
+msgid "No, take me back"
+msgstr "Yo'q, ortga qaytaman"
+
+msgid "Delete multiple objects"
+msgstr "Bir nechta obyektni o'chirish"
+
+msgid "Delete?"
+msgstr "O'chirilsinmi?"
+
+msgid "Recent actions"
+msgstr "So'nggi amallar"
+
+msgid "My actions"
+msgstr "Mening amallarim"
+
+msgid "None available"
+msgstr "Hozircha mavjud emas"
+
+msgid "Added:"
+msgstr "Qo'shildi:"
+
+msgid "Changed:"
+msgstr "O'zgartirildi:"
+
+msgid "Deleted:"
+msgstr "O'chirildi:"
+
+msgid "Unknown content"
+msgstr "Noma'lum kontent"
+
+msgid "Toggle navigation"
+msgstr "Navigatsiyani almashtirish"
+
+msgid "Sidebar"
+msgstr "Yon panel"
+
+msgid "Filter navigation items"
+msgstr "Navigatsiya bo'limlarini filtrlash"
+
+msgid "Action"
+msgstr "Amal"
+
+msgid "Show all"
+msgstr "Barchasini ko'rsatish"
+
+msgid "Save"
+msgstr "Saqlash"
+
+msgid "Search"
+msgstr "Qidirish"
+
+msgid "Save as new"
+msgstr "Yangi nusxa sifatida saqlash"
+
+msgid "Save and add another"
+msgstr "Saqlab, yana bittasini qo'shish"
+
+msgid "Save and continue editing"
+msgstr "Saqlab, tahrirlashni davom ettirish"
+
+msgid "Save and view"
+msgstr "Saqlab ko'rish"
+
+msgid "Close"
+msgstr "Yopish"
+
+msgid "Change selected %(model)s"
+msgstr "Tanlangan %(model)sni tahrirlash"
+
+msgid "Add another %(model)s"
+msgstr "Yana %(model)s qo'shish"
+
+msgid "Delete selected %(model)s"
+msgstr "Tanlangan %(model)sni o'chirish"
+
+msgid "View selected %(model)s"
+msgstr "Tanlangan %(model)sni ko'rish"
+
+msgid "Delete selected %(verbose_name_plural)s"
+msgstr "Tanlangan %(verbose_name_plural)sni o'chirish"
+
+msgid "Welcome,"
+msgstr "Xush kelibsiz,"
+
+msgid "View site"
+msgstr "Saytni ko'rish"
+
+msgid "View on site"
+msgstr "Saytda ko'rish"
+
+msgid "Log out"
+msgstr "Chiqish"
+
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] "Quyidagi xatoni to'g'rilang."
+
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+"Haqiqatan ham %(object_name)s \"%(escaped_object)s\" obyektini "
+"o'chirmoqchimisiz? Quyidagi bog'liq ma'lumotlarning barchasi ham o'chiriladi:"
+
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the "
+"following objects and their related items will be deleted:"
+msgstr ""
+"Haqiqatan ham tanlangan %(objects_name)sni o'chirmoqchimisiz? Quyidagi "
+"obyektlar va ularga bog'liq barcha ma'lumotlar ham o'chiriladi:"

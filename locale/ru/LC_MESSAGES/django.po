@@ -1,0 +1,279 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 10:40+0500\n"
+"PO-Revision-Date: 2026-04-18 10:40+0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: apps/store/apps.py:7
+msgid "Store"
+msgstr "Магазин"
+
+#: apps/users/apps.py:7
+msgid "Users"
+msgstr "Пользователи"
+
+#: apps/store/models.py:8
+msgid "Name"
+msgstr "Название"
+
+#: apps/store/models.py:9
+msgid "Volume"
+msgstr "Объем"
+
+#: apps/store/models.py:10
+msgid "Price"
+msgstr "Цена"
+
+#: apps/store/models.py:11
+msgid "Image"
+msgstr "Изображение"
+
+#: apps/store/models.py:12 apps/store/models.py:52
+msgid "Is active"
+msgstr "Активен"
+
+#: apps/store/models.py:14 apps/store/models.py:68 apps/store/models.py:97
+#: apps/store/models.py:131 apps/store/models.py:180 apps/store/models.py:271
+#: apps/store/models.py:295
+msgid "Created at"
+msgstr "Создано"
+
+#: apps/store/models.py:15 apps/store/models.py:69 apps/store/models.py:98
+#: apps/store/models.py:132 apps/store/models.py:181 apps/store/models.py:272
+msgid "Updated at"
+msgstr "Обновлено"
+
+#: apps/store/models.py:19 apps/store/models.py:46 apps/store/models.py:121
+#: apps/store/models.py:198
+msgid "Product"
+msgstr "Товар"
+
+#: apps/store/models.py:20
+msgid "Products"
+msgstr "Товары"
+
+#: apps/store/models.py:57
+msgid "Start date"
+msgstr "Дата начала"
+
+#: apps/store/models.py:58
+msgid "End date"
+msgstr "Дата окончания"
+
+#: apps/store/models.py:61
+msgid "Created by"
+msgstr "Кем создано"
+
+#: apps/store/models.py:73
+msgid "Promotion"
+msgstr "Акция"
+
+#: apps/store/models.py:74
+msgid "Promotions"
+msgstr "Акции"
+
+#: apps/store/models.py:91 apps/store/models.py:166 apps/store/models.py:281
+#: apps/store/models.py:305
+msgid "User"
+msgstr "Пользователь"
+
+#: apps/store/models.py:102 apps/store/models.py:117
+msgid "Cart"
+msgstr "Корзина"
+
+#: apps/store/models.py:103
+msgid "Carts"
+msgstr "Корзины"
+
+#: apps/store/models.py:126 apps/store/models.py:203
+msgid "Quantity"
+msgstr "Количество"
+
+#: apps/store/models.py:137
+msgid "Cart item"
+msgstr "Элемент корзины"
+
+#: apps/store/models.py:138
+msgid "Cart items"
+msgstr "Элементы корзины"
+
+#: apps/store/models.py:160
+msgid "New"
+msgstr "Новый"
+
+#: apps/store/models.py:161
+msgid "Accepted"
+msgstr "Принят"
+
+#: apps/store/models.py:162
+msgid "Delivered"
+msgstr "Доставлен"
+
+#: apps/store/models.py:163
+msgid "Cancelled"
+msgstr "Отменён"
+
+#: apps/store/models.py:184
+msgid "Phone"
+msgstr "Телефон"
+
+#: apps/store/models.py:185
+msgid "Address"
+msgstr "Адрес"
+
+#: apps/store/models.py:186
+msgid "Latitude"
+msgstr "Широта"
+
+#: apps/store/models.py:187
+msgid "Longitude"
+msgstr "Долгота"
+
+#: apps/store/models.py:188
+msgid "Delivery time"
+msgstr "Время доставки"
+
+#: apps/store/models.py:189 apps/store/models.py:290
+msgid "Comment"
+msgstr "Комментарий"
+
+#: apps/store/models.py:191
+msgid "Subtotal"
+msgstr "Сумма без скидки"
+
+#: apps/store/models.py:192 apps/store/models.py:206
+msgid "Discount amount"
+msgstr "Сумма скидки"
+
+#: apps/store/models.py:193
+msgid "Total amount"
+msgstr "Итоговая сумма"
+
+#: apps/store/models.py:195
+msgid "Status"
+msgstr "Статус"
+
+#: apps/store/models.py:172 apps/store/models.py:194
+msgid "Order"
+msgstr "Заказ"
+
+#: apps/store/models.py:200
+msgid "Orders"
+msgstr "Заказы"
+
+#: apps/store/models.py:205
+msgid "Unit price"
+msgstr "Цена за единицу"
+
+#: apps/store/models.py:51 apps/store/models.py:207
+msgid "Discount percent"
+msgstr "Процент скидки"
+
+#: apps/store/models.py:208
+msgid "Final price"
+msgstr "Итоговая цена"
+
+#: apps/store/models.py:212
+msgid "Order item"
+msgstr "Позиция заказа"
+
+#: apps/store/models.py:213
+msgid "Order items"
+msgstr "Позиции заказа"
+
+#: apps/store/models.py:232
+msgid "Operator Telegram ID"
+msgstr "Telegram ID оператора"
+
+#: apps/store/models.py:238
+msgid "Bot setting"
+msgstr "Настройка бота"
+
+#: apps/store/models.py:239
+msgid "Bot settings"
+msgstr "Настройки бота"
+
+#: apps/store/models.py:253
+msgid "Rating"
+msgstr "Оценка"
+
+#: apps/store/models.py:266
+msgid "Feedback"
+msgstr "Отзыв"
+
+#: apps/store/models.py:267
+msgid "Feedbacks"
+msgstr "Отзывы"
+
+#: apps/store/models.py:307
+msgid "Text"
+msgstr "Текст"
+
+#: apps/store/models.py:312
+msgid "Help message"
+msgstr "Сообщение помощи"
+
+#: apps/store/models.py:313
+msgid "Help messages"
+msgstr "Сообщения помощи"
+
+#: apps/store/models.py:244
+msgid "⭐⭐⭐⭐⭐"
+msgstr "⭐⭐⭐⭐⭐"
+
+#: apps/store/models.py:245
+msgid "⭐⭐⭐⭐"
+msgstr "⭐⭐⭐⭐"
+
+#: apps/store/models.py:246
+msgid "⭐⭐⭐"
+msgstr "⭐⭐⭐"
+
+#: apps/store/models.py:247
+msgid "⭐⭐"
+msgstr "⭐⭐"
+
+#: apps/store/models.py:248
+msgid "⭐"
+msgstr "⭐"
+
+msgid "Control panel"
+msgstr "������ ����������"
+
+msgid "Main information"
+msgstr "�������� ����������"
+
+msgid "Dates"
+msgstr "����"
+
+msgid "Preview"
+msgstr "������������"
+
+msgid "System information"
+msgstr "��������� ����������"
+
+msgid "Order details"
+msgstr "������ ������"
+
+msgid "Address and delivery"
+msgstr "����� � ��������"
+
+msgid "Totals"
+msgstr "�����"
+
+msgid "Telegram ID"
+msgstr "Telegram ID"
+
+msgid "Full name"
+msgstr "������ ���"
+
+msgid "Language"
+msgstr "����"

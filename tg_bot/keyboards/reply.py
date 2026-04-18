@@ -169,7 +169,7 @@ def feedback_keyboard(lang: str):
     if lang == "uz":
         keyboard = [
             [KeyboardButton(text="Hammasi yoqdi ❤️")],
-            [KeyboardButton(text="Yaxshi ⭐⭐⭐⭐⭐")],
+            [KeyboardButton(text="Yaxshi ⭐⭐⭐⭐")],
             [KeyboardButton(text="Yoqmadi ⭐⭐⭐")],
             [KeyboardButton(text="Yomon ⭐⭐")],
             [KeyboardButton(text="Juda yomon 👎🏻")],
@@ -178,7 +178,7 @@ def feedback_keyboard(lang: str):
     else:
         keyboard = [
             [KeyboardButton(text="Очень понравилось ❤️")],
-            [KeyboardButton(text="Хорошо ⭐⭐⭐⭐⭐")],
+            [KeyboardButton(text="Хорошо ⭐⭐⭐⭐")],
             [KeyboardButton(text="Не понравилось ⭐⭐⭐")],
             [KeyboardButton(text="Плохо ⭐⭐")],
             [KeyboardButton(text="Очень плохо 👎🏻")],
@@ -190,6 +190,37 @@ def feedback_keyboard(lang: str):
         resize_keyboard=True,
         is_persistent=True,
     )
+
+def help_keyboard(lang: str):
+    if lang == "uz":
+        keyboard = [
+            [
+                KeyboardButton(text="📞 Telefon orqali bog'lanish"),
+                KeyboardButton(text="📬 Xabar jo'natish"),
+            ],
+            [
+                KeyboardButton(text="🛒 Buyurtma tarixi"),
+                KeyboardButton(text="⬅️ Orqaga"),
+            ],
+        ]
+    else:
+        keyboard = [
+            [
+                KeyboardButton(text="📞 Связаться по телефону"),
+                KeyboardButton(text="📬 Отправить сообщение"),
+            ],
+            [
+                KeyboardButton(text="🛒 История заказов"),
+                KeyboardButton(text="⬅️ Назад"),
+            ],
+        ]
+
+    return ReplyKeyboardMarkup(
+        keyboard=keyboard,
+        resize_keyboard=True,
+        is_persistent=True,
+    )
+
 
 def cancel_keyboard(lang: str):
     if lang == "uz":

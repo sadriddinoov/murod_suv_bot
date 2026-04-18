@@ -43,12 +43,12 @@ async def help_handler(message: Message, state: FSMContext):
         "Ниже выберите тип помощи. Если не найдете ответ, свяжитесь с оператором."
     )
 
-    await message.answer(text, reply_markup=help_inline_keyboard(lang))
+    await message.answer(text, reply_markup=help_keyboard(lang))
 
 
-@router.callback_query(F.data == "help_phone")
-async def help_phone_callback(callback: CallbackQuery):
-    user = await get_user_by_telegram_id(callback.from_user.id)
+@router.message(F.text.in_(["📞 Telefon orqali bog'lanish", "📞 Связаться по телефону"]))
+async def help_phone_handler(message: Message):
+    user = await get_user_by_telegram_id(message.from_user.id)
     lang = user.language if user else "uz"
 
     text = (
@@ -56,15 +56,14 @@ async def help_phone_callback(callback: CallbackQuery):
         if lang == "uz"
         else f"Наш номер: {PHONE_NUMBER}"
     )
-    await callback.message.answer(text)
-    await callback.answer()
+    await message.answer(text, reply_markup=help_keyboard(lang))
 
 
-@router.callback_query(F.data == "help_message")
-async def help_message_start_callback(callback: CallbackQuery, state: FSMContext):
+@router.message(F.text.in_(["📬 Xabar jo'natish", "📬 Отправить сообщение"]))
+async def help_message_start_handler(message: Message, state: FSMContext):
     await state.set_state(HelpState.waiting_for_message)
 
-    user = await get_user_by_telegram_id(callback.from_user.id)
+    user = await get_user_by_telegram_id(message.from_user.id)
     lang = user.language if user else "uz"
 
     text = (
@@ -72,9 +71,7 @@ async def help_message_start_callback(callback: CallbackQuery, state: FSMContext
         if lang == "uz"
         else "Отправьте нам ваше сообщение:"
     )
-
-    await callback.message.answer(text, reply_markup=cancel_keyboard(lang))
-    await callback.answer()
+    await message.answer(text, reply_markup=cancel_keyboard(lang))
 
 
 @router.message(HelpState.waiting_for_message, F.text.in_(["Bekor qilish", "Отмена"]))
@@ -110,11 +107,11 @@ async def help_message_save_handler(message: Message, state: FSMContext):
     await create_help_message(message.from_user.id, text_value)
 
     admin_text = (
-        f"📬 Yangi help xabar\n\n"
+        f"📬 Yangi xabar\n\n"
         f"👤 Ism: {user.full_name if user else message.from_user.full_name}\n"
         f"📞 Telefon: {user.phone if user else '-'}\n"
         f"🆔 Telegram ID: {message.from_user.id}\n"
-        f"💬 Xabar:\n{text_value}"
+        f"💬 Xabar: {text_value}"
     )
 
     for admin_id in ADMIN_IDS:
@@ -134,9 +131,9 @@ async def help_message_save_handler(message: Message, state: FSMContext):
     await state.clear()
 
 
-@router.callback_query(F.data == "help_orders")
-async def order_history_callback(callback: CallbackQuery):
-    user = await get_user_by_telegram_id(callback.from_user.id)
+@router.message(F.text.in_(["🛒 Buyurtma tarixi", "🛒 История заказов"]))
+async def order_history_handler(message: Message):
+    user = await get_user_by_telegram_id(message.from_user.id)
     lang = user.language if user else "uz"
 
     text = (
@@ -144,13 +141,12 @@ async def order_history_callback(callback: CallbackQuery):
         if lang == "uz"
         else "🛒 История заказов пока пуста."
     )
-    await callback.message.answer(text)
-    await callback.answer()
+    await message.answer(text, reply_markup=help_keyboard(lang))
 
 
-@router.callback_query(F.data == "help_back")
-async def help_back_callback(callback: CallbackQuery, state: FSMContext):
-    user = await get_user_by_telegram_id(callback.from_user.id)
+@router.message(F.text.in_(["⬅️ Orqaga", "⬅️ Назад"]))
+async def help_back_handler(message: Message, state: FSMContext):
+    user = await get_user_by_telegram_id(message.from_user.id)
     lang = user.language if user else "uz"
 
     text = (
@@ -159,6 +155,5 @@ async def help_back_callback(callback: CallbackQuery, state: FSMContext):
         else "💧 Вы в главном меню.\nПожалуйста, выберите нужный раздел ⬇️"
     )
 
-    await callback.message.answer(text, reply_markup=home_keyboard(lang))
+    await message.answer(text, reply_markup=home_keyboard(lang))
     await state.clear()
-    await callback.answer()

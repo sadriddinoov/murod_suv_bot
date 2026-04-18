@@ -2,6 +2,7 @@ import os
 import asyncio
 from dotenv import load_dotenv
 
+load_dotenv(override=True)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
 import django
@@ -14,7 +15,6 @@ from tg_bot.handlers.settings import router as settings_router
 from tg_bot.handlers.feedback import router as feedback_router
 from tg_bot.handlers.help import router as help_router
 
-load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 

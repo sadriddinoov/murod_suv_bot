@@ -1,17 +1,19 @@
-from pathlib import Path
 import os
-from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv()
+from dotenv import load_dotenv
+from django.utils.translation import gettext_lazy as _
+
+load_dotenv(override=True)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
 DEBUG = os.getenv("DEBUG", "True") == "True"
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["45.126.125.203", "127.0.0.1", "localhost"]
 
 INSTALLED_APPS = [
-    "jazzmin",
+    "unfold",
     "modeltranslation",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -25,7 +27,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -38,7 +42,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -60,28 +64,63 @@ DATABASES = {
     }
 }
 
-AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
-]
+LANGUAGE_CODE = "uz"
+LANGUAGE_COOKIE_NAME = "django_language"
+LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 365
+LANGUAGE_COOKIE_SAMESITE = "Lax"
 
-LANGUAGE_CODE = 'uz'
-TIME_ZONE = 'Asia/Tashkent'
+TIME_ZONE = "Asia/Tashkent"
 USE_I18N = True
-LANGUAGES = (
-    ("uz", "Uzbek"),
-    ("ru", "Russian"),
-)
-
-MODELTRANSLATION_DEFAULT_LANGUAGE = "uz"
-MODELTRANSLATION_LANGUAGES = ("uz", "ru")
-MODELTRANSLATION_PREPOPULATE_LANGUAGE = "uz"
 USE_TZ = True
 
-STATIC_URL = 'static/'
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+LANGUAGES = [
+    ("uz", "O'zbekcha"),
+    ("ru", "Русский"),
+    ("en", "English"),
+]
+
+LOCALE_PATHS = [BASE_DIR / "locale"]
+
+UNFOLD = {
+    "SITE_TITLE": "Murod Suv Admin",
+    "SITE_HEADER": "Murod Suv",
+    "SITE_SUBHEADER": _("Control panel"),
+    "SITE_SYMBOL": "water_drop",
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": True,
+    "SHOW_LANGUAGES": True,
+    "EXTENSIONS": {
+        "modeltranslation": {
+            "flags": {
+                "uz": "🇺🇿",
+                "ru": "🇷🇺",
+                "en": "🇬🇧",
+            },
+        },
+    },
+}
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = "uz"
+MODELTRANSLATION_LANGUAGES = ("uz", "ru", "en")
+MODELTRANSLATION_PREPOPULATE_LANGUAGE = "uz"
+MODELTRANSLATION_FALLBACK_LANGUAGES = ("uz", "ru", "en")
+
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": (
+            "django.contrib.staticfiles.storage.StaticFilesStorage"
+            if DEBUG
+            else "whitenoise.storage.CompressedManifestStaticFilesStorage"
+        ),
+    },
+}
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

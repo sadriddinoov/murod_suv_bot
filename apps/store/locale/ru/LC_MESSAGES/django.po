@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: murod-suv-bot\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Control panel"
+msgstr "Панель управления"
+
+msgid "Main information"
+msgstr "Основная информация"
+
+msgid "Dates"
+msgstr "Даты"
+
+msgid "Preview"
+msgstr "Предпросмотр"
+
+msgid "System information"
+msgstr "Системная информация"
+
+msgid "Order details"
+msgstr "Детали заказа"
+
+msgid "Address and delivery"
+msgstr "Адрес и доставка"
+
+msgid "Totals"
+msgstr "Итоги"
+
+msgid "Telegram ID"
+msgstr "Telegram ID"
+
+msgid "Full name"
+msgstr "Полное имя"
+
+msgid "Language"
+msgstr "Язык"
