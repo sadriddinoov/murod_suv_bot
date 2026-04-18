@@ -1,11 +1,11 @@
-from aiogram import Router, F
-from aiogram.filters import CommandStart, Command
-from aiogram.types import Message, BotCommand
+from aiogram import F, Router
+from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
+from aiogram.types import BotCommand, Message
 
+from tg_bot.keyboards.reply import home_keyboard, language_keyboard, phone_keyboard
+from tg_bot.services.users import create_or_update_user, get_user_by_telegram_id
 from tg_bot.states.start import StartState
-from tg_bot.keyboards.reply import language_keyboard, phone_keyboard, home_keyboard
-from tg_bot.services.users import get_user_by_telegram_id, create_or_update_user
 
 router = Router()
 
@@ -49,7 +49,7 @@ async def start_handler(message: Message, state: FSMContext):
     await state.set_state(StartState.choosing_language)
     await message.answer(
         "🌐 Tilni tanlang / Выберите язык",
-        reply_markup=language_keyboard()
+        reply_markup=language_keyboard(),
     )
 
 
@@ -64,19 +64,6 @@ async def menu_command_handler(message: Message):
         else "💧 Вы в главном меню.\nПожалуйста, выберите нужный раздел ⬇️"
     )
     await message.answer(text, reply_markup=home_keyboard(lang))
-
-
-@router.message(Command("help"))
-async def help_command_handler(message: Message):
-    user = await get_user_by_telegram_id(message.from_user.id)
-    lang = user.language if user else "uz"
-
-    text = (
-        "📞 Yordam bo'limi keyingi stepda to'ldiriladi."
-        if lang == "uz"
-        else "📞 Раздел помощи добавим на следующем этапе."
-    )
-    await message.answer(text)
 
 
 @router.message(Command("lang"))
@@ -102,7 +89,7 @@ async def choose_language_handler(message: Message, state: FSMContext):
 async def invalid_language_handler(message: Message):
     await message.answer(
         "🌐 Tilni tugma orqali tanlang / Выберите язык кнопкой",
-        reply_markup=language_keyboard()
+        reply_markup=language_keyboard(),
     )
 
 
@@ -138,11 +125,3 @@ async def invalid_phone_handler(message: Message, state: FSMContext):
         else "📱 Пожалуйста, отправьте номер телефона кнопкой ниже."
     )
     await message.answer(text, reply_markup=phone_keyboard(lang))
-
-
-@router.message(F.text.in_(["📞 Yordam", "📞 Помощь"]))
-async def help_menu_handler(message: Message):
-    if message.text == "📞 Yordam":
-        await message.answer("📞 Yordam bo'limi keyingi stepda to'ldiriladi.")
-    else:
-        await message.answer("📞 Раздел помощи заполним на следующем этапе.")

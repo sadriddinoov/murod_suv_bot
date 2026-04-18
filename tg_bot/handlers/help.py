@@ -1,11 +1,11 @@
 import os
 
 from aiogram import Router, F
+from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 
-from tg_bot.keyboards.reply import home_keyboard, cancel_keyboard
-from tg_bot.keyboards.inline import help_inline_keyboard
+from tg_bot.keyboards.reply import home_keyboard, cancel_keyboard, help_inline_keyboard
 from tg_bot.services.users import get_user_by_telegram_id
 from tg_bot.services.feedback import create_help_message
 from tg_bot.states.help_feedback import HelpState
@@ -13,10 +13,11 @@ from tg_bot.states.help_feedback import HelpState
 router = Router()
 
 ADMIN_IDS = [int(x.strip()) for x in os.getenv("ADMIN_IDS", "").split(",") if x.strip()]
-PHONE_NUMBER = os.getenv("SUPPORT_PHONE", "+998 78 777-1777")
+PHONE_NUMBER = os.getenv("SUPPORT_PHONE")
 
 
 @router.message(F.text.in_(["📞 Yordam", "📞 Помощь"]))
+@router.message(Command("help"))
 async def help_handler(message: Message, state: FSMContext):
     await state.clear()
 
