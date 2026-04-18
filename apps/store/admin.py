@@ -1,4 +1,5 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin as UnfoldModelAdmin
 from django.utils.html import format_html
 from modeltranslation.admin import TranslationAdmin
 
@@ -43,6 +44,7 @@ class ProductAdmin(TranslationAdmin):
         "image_preview",
         "created_at",
     )
+    list_display_links = ("name",)
     list_filter = ("is_active", "created_at")
     search_fields = ("name", "name_uz", "name_ru", "volume")
     readonly_fields = ("created_at", "updated_at", "image_preview")
@@ -67,7 +69,7 @@ class ProductAdmin(TranslationAdmin):
 
 
 @admin.register(Promotion)
-class PromotionAdmin(admin.ModelAdmin):
+class PromotionAdmin(UnfoldModelAdmin):
     list_display = (
         "id",
         "product",
@@ -78,6 +80,7 @@ class PromotionAdmin(admin.ModelAdmin):
         "end_date",
         "created_at",
     )
+    list_display_links = ("product",)
     list_filter = ("is_active", "created_at", "start_date", "end_date")
     search_fields = ("product__name", "product__name_uz", "product__name_ru")
     readonly_fields = ("created_by", "created_at", "updated_at")
@@ -107,10 +110,11 @@ class PromotionAdmin(admin.ModelAdmin):
 
 
 @admin.register(Cart)
-class CartAdmin(admin.ModelAdmin):
+class CartAdmin(UnfoldModelAdmin):
     list_display = ("id", "user", "subtotal", "discount_amount", "total_amount", "created_at", "updated_at")
     search_fields = ("user__full_name", "user__phone", "user__telegram_id")
     readonly_fields = ("created_at", "updated_at", "subtotal", "discount_amount", "total_amount")
+    list_display_links = ("user",)
     inlines = [CartItemInline]
     ordering = ("-id",)
     list_per_page = 20
@@ -119,7 +123,7 @@ class CartAdmin(admin.ModelAdmin):
 
 
 @admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(UnfoldModelAdmin):
     list_display = (
         "id",
         "user",
@@ -132,6 +136,7 @@ class OrderAdmin(admin.ModelAdmin):
     )
     list_filter = ("status", "created_at")
     search_fields = ("user__full_name", "user__phone", "phone", "address")
+    list_display_links = ("user",)
     readonly_fields = ("created_at", "updated_at", "subtotal", "discount_amount", "total_amount")
     inlines = [OrderItemInline]
     ordering = ("-id",)
@@ -156,9 +161,14 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 @admin.register(BotSetting)
-class BotSettingAdmin(admin.ModelAdmin):
-    list_display = ("id", "operator_telegram_id")
+class BotSettingAdmin(UnfoldModelAdmin):
+    list_display = ("id", "operator_telegram_id_safe")
     ordering = ("-id",)
+
+    def operator_telegram_id_safe(self, obj):
+        value = getattr(obj, "operator_telegram_id", None)
+        return value if value else "-"
+    operator_telegram_id_safe.short_description = "Operator telegram id"
 
     def has_add_permission(self, request):
         if self.model.objects.count() >= 1:
@@ -167,10 +177,11 @@ class BotSettingAdmin(admin.ModelAdmin):
 
 
 @admin.register(Feedback)
-class FeedbackAdmin(admin.ModelAdmin):
+class FeedbackAdmin(UnfoldModelAdmin):
     list_display = ("id", "user", "rating", "short_comment", "created_at")
     list_filter = ("rating", "created_at")
     search_fields = ("user__full_name", "user__phone", "comment")
+    list_display_links = ("id",)
     ordering = ("-id",)
     list_per_page = 20
     date_hierarchy = "created_at"
@@ -185,14 +196,17 @@ class FeedbackAdmin(admin.ModelAdmin):
 
 
 @admin.register(HelpMessage)
-class HelpMessageAdmin(admin.ModelAdmin):
+class HelpMessageAdmin(UnfoldModelAdmin):
     list_display = ("id", "user", "short_text", "created_at")
     search_fields = ("user__full_name", "user__phone", "text")
+    list_display_links = ("id",)
     ordering = ("-id",)
     list_per_page = 20
     date_hierarchy = "created_at"
     autocomplete_fields = ("user",)
 
     def short_text(self, obj):
+        if not obj.text:
+            return "-"
         return obj.text[:60]
     short_text.short_description = "Message"
