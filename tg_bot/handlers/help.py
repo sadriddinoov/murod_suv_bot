@@ -2,10 +2,10 @@ import os
 
 from aiogram import Router, F
 from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 
-from tg_bot.keyboards.reply import home_keyboard, cancel_keyboard, help_inline_keyboard
+from tg_bot.keyboards.reply import home_keyboard, cancel_keyboard, help_keyboard
 from tg_bot.services.users import get_user_by_telegram_id
 from tg_bot.services.feedback import create_help_message
 from tg_bot.states.help_feedback import HelpState
